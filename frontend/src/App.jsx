@@ -1,28 +1,11 @@
-import { useEffect,useState } from "react";
+import ProductList from "../pages/ProductList";
 
 function App() {
-  const [products, setProducts] = useState([]);
-  
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
-
   return (
-  <div className="min-h-screen bg-gray-100 p-4">
-    <h1 className="text-3xl font-bold underline">Product List</h1>
-    <div className="container">
-      {products.map(product => (
-        <div key={product.id} className="bg-white p-4 rounded shadow mb-4">
-          <h2 className="text-xl font-semibold">{product.name}</h2>
-          <p className="text-gray-600">{product.description}</p>
-          <p className="text-green-500 font-bold">${product.price}</p>
-        </div>
-      ))}
+    <div>
+      <ProductList />
     </div>
-  </div>
   );
-} 
-  export default App;
+}
+
+export default App;
