@@ -8,6 +8,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model:Product
+        model=Product
         fields='__all__'
 
