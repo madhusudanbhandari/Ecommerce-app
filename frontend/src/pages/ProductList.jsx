@@ -7,7 +7,7 @@ function ProductList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    //const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL ;
+    const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL ;
 
    useEffect(() => {
     const fetchProducts = async () => {
@@ -15,7 +15,7 @@ function ProductList() {
             console.log("Fetching started");
 
             const response = await fetch(
-                "http://127.0.0.1:8000/products/"
+                `${BASEURL}/api/products/`
             );
 
             console.log("Response received:", response);
