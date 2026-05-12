@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Product ,Category,Cart,CartItem
-from .serializers import ProductSerializer,CategorySerializer,CartSerializer
+from .serializers import ProductSerializer,CategorySerializer,CartSerializer,CartItemSerializer
 
 @api_view(['GET'])
 def home(request):
@@ -59,7 +59,29 @@ def remove_from_cart(request):
 
 
             
+@api_view(['POST'])
+def update_cart_quantity(request):
+    item_id=request.data.get('item_id')
+    quantity=request.data.get('quantity')
 
+    if not item_id or quantity is None:
+        return Response({'error':'Item ID and quantity are required'}, status=400)
+
+    try:
+        item=CartItem.objects.get(id=item_id)
+        if int(quantity)<1:
+            item.delete()
+            return Response({'error':'Quantity must be at least 1'},status=400)
+        
+        item.quantity=quantity
+        item.save()
+        serialzer=CartItemSerializer(item)
+        return Response(serialzer.data)
+    
+    except CartItem.DoesNotExist:
+        return Response({'error':'Cart item not found'},status=404)
+              
+              
 
 
 
