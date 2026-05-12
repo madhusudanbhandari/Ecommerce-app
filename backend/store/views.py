@@ -20,3 +20,11 @@ def get_categories(request):
         serializer=CategorySerializer(categories,many=True)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def get_product(request,id):
+        try:
+            product=Product.objects.get(id=id)
+            serializer=ProductSerializer(product, context={'request': request})
+            return Response(serializer.data)
+        except Product.DoesNotExist:
+            return Response({'error':'Product not found'},status=404)

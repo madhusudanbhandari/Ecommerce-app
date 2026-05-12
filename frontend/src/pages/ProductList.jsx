@@ -15,7 +15,7 @@ function ProductList() {
             console.log("Fetching started");
 
             const response = await fetch(
-                `${BASEURL}/api/products/`
+                `${BASEURL}/products/`
             );
 
             console.log("Response received:", response);

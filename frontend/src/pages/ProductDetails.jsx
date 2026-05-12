@@ -1,20 +1,3 @@
-// import { Link } from "react-router-dom";
-
-// function ProductDetails({product}){
-//     const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL ;
-
-//     return (
-//         <Link to={`/product/${product.id}`} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300">
-//             <img src={`${BASEURL}${product.image}`} alt={product.name}  className="w-full h-56 object-cover rounded-lg mb-4"/>
-//             <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-//             <p className="text-green-500 font-bold">${product.price}</p>
-//             <p className="text-gray-600">{product.description}</p>
-//         </Link>
-
-//     );
-// }
-// export default ProductDetails
-
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -27,7 +10,7 @@ function ProductDetails() {
   const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
 
   useEffect(() => {
-    fetch(`${BASEURL}/api/products/${id}/`)
+    fetch(`${BASEURL}/products/${id}/`)   // ✅ fixed URL
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -44,20 +27,13 @@ function ProductDetails() {
       });
   }, [id, BASEURL]);
 
-  if (loading) {
-    return <div className="text-center mt-10">Loading...</div>;
-  }
-  if (error) {
-    return <div className="text-center mt-10 text-red-500">Error: {error}</div>;
-  }
-  if (!product) {
-    return <div className="text-center mt-10">Product not found</div>;
-  }
+  if (loading) return <div className="text-center mt-10">Loading...</div>;
+  if (error)   return <div className="text-center mt-10 text-red-500">Error: {error}</div>;
+  if (!product) return <div className="text-center mt-10">Product not found</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-md mt-10">
-      <div className="flex flex-col md:flex-row">
-        <div className="flex flex-col md:flex-row gap-8"></div>
+      <div className="flex flex-col md:flex-row gap-8"> {/* ✅ fixed wrapper */}
         <img
           src={`${BASEURL}${product.image}`}
           alt={product.name}
@@ -77,3 +53,5 @@ function ProductDetails() {
     </div>
   );
 }
+
+export default ProductDetails; 
