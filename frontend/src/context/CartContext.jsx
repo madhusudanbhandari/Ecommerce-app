@@ -76,6 +76,11 @@ export const CartProvider = ({children}) => {
         console.error("Error updating quantity:",error);
         }
     }
+    const clearCart=async()=>{
+        setCartItems([]);
+        setTotal(0);
+    }
+       
 
     return(
         <CartContext.Provider value=

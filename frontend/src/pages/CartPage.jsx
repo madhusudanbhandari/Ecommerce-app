@@ -1,4 +1,5 @@
 import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   const { cartItems,total,removeFromCart, updateQuantity } = useCart();
@@ -41,7 +42,7 @@ function CartPage() {
                   <button
                         onClick={() => {
                         if (item.quantity === 1) {
-                            removeFromCart(item.id);  // remove if quantity reaches 0
+                            removeFromCart(item.id);  
                          } else {
                                 updateQuantity(item.id, item.quantity - 1);
                          }
@@ -72,6 +73,11 @@ function CartPage() {
             <h2 className="text-2xl font-bold">
               Total: ${Number(total).toFixed(2)}
             </h2>
+            <p className="text-lg font-semibold">
+              <Link to="/checkout" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Proceed to Checkout
+              </Link>
+            </p>
           </div>
         </div>
       )}
