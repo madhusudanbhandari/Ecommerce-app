@@ -1,15 +1,10 @@
 import { useCart } from "../context/CartContext";
 
 function CartPage() {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { cartItems,total,removeFromCart, updateQuantity } = useCart();
 
-  console.log(cartItems);
-
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + Number(item.price) * item.quantity,
-    0,
-  );
-
+  const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
+  console.log("Cart Items:", cartItems);
   return (
     <div className="max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-md mt-10">
       <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
@@ -24,15 +19,16 @@ function CartPage() {
                 key={item.id}
                 className="flex items-center justify-between border-b pb-4"
               >
+                
                 <div className="flex items-center">
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={`${BASEURL}${item.product_image}`}
+                    alt={item.product_name}
                     className="w-16 h-16 object-cover rounded-lg"
                   />
 
                   <div className="ml-4">
-                    <h2 className="text-lg font-semibold">{item.title}</h2>
+                    <h2 className="text-lg font-semibold">{item.product_name}</h2>
 
                     <p className="text-green-500 font-bold">
                       ${Number(item.price).toFixed(2)}
@@ -74,7 +70,7 @@ function CartPage() {
 
           <div className="mt-6">
             <h2 className="text-2xl font-bold">
-              Total: ${Number(totalPrice).toFixed(2)}
+              Total: ${Number(total).toFixed(2)}
             </h2>
           </div>
         </div>

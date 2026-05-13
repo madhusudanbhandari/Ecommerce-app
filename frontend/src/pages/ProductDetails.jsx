@@ -96,7 +96,7 @@ function ProductDetails() {
 
             
             <button className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 active:scale-95 transition-all duration-200"
-              onClick={() => addToCart(product)}
+              onClick={() => addToCart(product.id)}
             >
               🛒 Add to Cart
             </button>
