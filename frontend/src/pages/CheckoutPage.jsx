@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-
+import { authFetch } from "../utils/auth";
 
 function CheckoutPage() {
     const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
@@ -9,7 +9,7 @@ function CheckoutPage() {
     const navigate = useNavigate();
     
     const [form,setForm]=useState({
-        name:" ",
+        name:"",
         address:"",
         phone:"",
         payment_method:"COD",
@@ -27,10 +27,10 @@ function CheckoutPage() {
    const handleSubmit= async(e)=>{
     e.preventDefault();
     setLoading(true);
-    setMessage(" ");
+    setMessage("");
     
     try{
-        const res= await fetch(`${BASEURL}/orders/create`,{
+        const res= await authFetch(`${BASEURL}/orders/create/`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
@@ -43,7 +43,7 @@ function CheckoutPage() {
         if (res.ok){
             setMessage("Order Placed successfully");
             fetch(`${BASEURL}/cart/clear/`)
-            clearCart();
+            // clearCart();
             setTimeout(()=>{
                 navigate("/");
             },2000);
@@ -91,7 +91,7 @@ function CheckoutPage() {
                     className="w-full border rouned-lg p-2"
                     >
                     <option value="COD">Cash On Delivery</option>
-                    <option value="CreditCart">Online Payment</option>
+                    <option value="CreditCard">Online Payment</option>
                     </select>
 
                     <button  
@@ -110,9 +110,8 @@ function CheckoutPage() {
             
         </div>
     )
-
-
-
-    
+  
 }
+
+
 export default CheckoutPage;

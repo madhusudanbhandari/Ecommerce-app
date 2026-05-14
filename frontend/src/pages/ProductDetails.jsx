@@ -48,6 +48,15 @@ function ProductDetails() {
       </div>
     );
 
+    const handleAddToCart=()=>{
+        if (!localStorage.getItem("access_token")){
+          window.location.href="/login";
+          return;
+        }s
+        addToCart(product.id);
+
+    };
+
   return (
     <div className="max-w-4xl mx-auto p-6 mt-10">
 
@@ -96,7 +105,7 @@ function ProductDetails() {
 
             
             <button className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 active:scale-95 transition-all duration-200"
-              onClick={() => addToCart(product.id)}
+              onClick={handleAddToCart}
             >
               🛒 Add to Cart
             </button>
