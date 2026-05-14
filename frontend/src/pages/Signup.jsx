@@ -7,6 +7,7 @@ function Signup(){
         username:"",
         email:"",
         password:"",
+        password2:"",
     });
     const [msg,setMsg]=useState("");
     const navigate=useNavigate();
@@ -30,7 +31,8 @@ function Signup(){
                 body:JSON.stringify({
                     username:form.username,
                     email:form.email,
-                    password:form.password
+                    password:form.password,
+                    password2:form.password2,
                 })
             });
             const data=await response.json();

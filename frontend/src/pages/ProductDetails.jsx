@@ -52,7 +52,7 @@ function ProductDetails() {
         if (!localStorage.getItem("access_token")){
           window.location.href="/login";
           return;
-        }s
+        }
         addToCart(product.id);
 
     };

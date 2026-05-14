@@ -43,7 +43,7 @@ function CheckoutPage() {
         if (res.ok){
             setMessage("Order Placed successfully");
             fetch(`${BASEURL}/cart/clear/`)
-            // clearCart();
+            clearCart();
             setTimeout(()=>{
                 navigate("/");
             },2000);

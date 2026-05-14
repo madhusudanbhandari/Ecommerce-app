@@ -1,5 +1,5 @@
 import { createContext, useContext, useState ,useEffect} from "react";
-
+import { authFetch,getAccessToken } from "../utils/auth";
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
@@ -9,7 +9,7 @@ export const CartProvider = ({children}) => {
 
     const fetchCart=async()=>{
         try{
-            const response=await fetch(`${BASEURL}/cart/`)
+            const response=await authFetch(`${BASEURL}/cart/`)
             if(!response.ok) {
                 throw new Error("Failed to fetch cart");   
             }
@@ -26,7 +26,7 @@ export const CartProvider = ({children}) => {
 
     const addToCart=async(productId)=>{
         try {
-            await fetch(`${BASEURL}/cart/add/`,{
+            await authFetch(`${BASEURL}/cart/add/`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -45,7 +45,7 @@ export const CartProvider = ({children}) => {
     const removeFromCart=async (itemId)=>{
         try{
 
-            await fetch (`${BASEURL}/cart/remove/`,{
+            await authFetch (`${BASEURL}/cart/remove/`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -64,7 +64,7 @@ export const CartProvider = ({children}) => {
             return;
         }
         try{
-            await fetch(`${BASEURL}/cart/update/`,{
+            await authFetch(`${BASEURL}/cart/update/`,{
                 method:'POST',
                 headers:{
                     "Content-Type":"application/json",
@@ -84,7 +84,7 @@ export const CartProvider = ({children}) => {
 
     return(
         <CartContext.Provider value=
-        {{cartItems,total,addToCart,removeFromCart,updateQuantity}}>
+        {{cartItems,total,addToCart,removeFromCart,updateQuantity,clearCart}}>
             {children}
         </CartContext.Provider>
     );

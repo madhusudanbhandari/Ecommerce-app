@@ -34,7 +34,7 @@ function Login() {
             });
             const data=await response.json();
             if(response.ok){
-                saveToken(data.access);
+                saveToken(data);
                 navigate("/");
             }else{
                 setMsg("Invalid credentials");
