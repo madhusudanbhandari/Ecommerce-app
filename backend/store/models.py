@@ -20,19 +20,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     phone=models.CharField(max_length=15,blank=True)
     address=models.TextField(blank=True)
 
-    def __str___(self):
+    def __str__(self):
         return self.user.username
 
 class Order(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
     total_amount=models.DecimalField(max_digits=10,decimal_places=2)
+
+    name = models.CharField(max_length=100, blank=True)
+    address = models.TextField(blank=True)
+    phone = models.CharField(max_length=15, blank=True)
+    payment_method = models.CharField(max_length=20, default='COD')
 
     def __str__(self):
         return f"order {self.id}"
@@ -71,3 +76,6 @@ class CartItem(models.Model):
     def subtotal(self):
         return self.quantity*self.product.price
     
+    class Meta:
+        ordering=['id']
+
