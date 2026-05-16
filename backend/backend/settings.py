@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-p!6*e+^sb((8ri9y^l$e#)7d9f28+m^mamiw_qf3#h%1r-*o+l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["your-backend.onrender.com", ]
 
 
 # Application definition
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
